@@ -82,7 +82,7 @@ footer {
 	<form action="RegisterServlet" method="Post">
 		Name: <input type="text" name="userName" size="25" required><br><br>
 		Password: <input type="password" name="password" size="22"	pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,12}" title="Password must contain at least one number (0-9) and one Uppercase and lowercase letter, and at least 10 (min) to 12 (max) characters" required><br><br>
-		Email: <input type="email" name="email" size="25" required ><br><br>
+		Email: <input type="email" name="email" size="25" required><br><br>
 		Language: <select name="language"> <option>English</option>	<option>Chinese</option> </select><br><br>
 		
 		<!-- Submit Button -->
