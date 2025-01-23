@@ -1,0 +1,21 @@
+# This is a comment.
+# Each line is a file pattern followed by one or more owners.
+
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence,
+# @J-e-r-m-y-n will be requested for
+# review when someone opens a pull request.
+*       @J-e-r-m-y-n
+
+# Order is important; the last matching pattern takes the most
+# precedence.
+
+# In this example, @J-e-r-m-y-n owns all files
+# under the webapp folder in the repository
+**/webapp @J-e-r-m-y-n
+
+# In this example, @J-e-r-m-y-n owns any Java files
+# in the repository
+.java @J-e-r-m-y-n
+
+# About GitHub Codeowners: https://help.github.com/articles/about-codeowners/
