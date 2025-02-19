@@ -58,7 +58,7 @@ pipeline{
             }
         }
 
-		stage("Deploy to Tomcat”) {
+		stage('Deploy to Tomcat') {
 			steps {
 				script {
 					// Find the WAR file
