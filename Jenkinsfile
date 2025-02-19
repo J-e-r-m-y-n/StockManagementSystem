@@ -19,12 +19,12 @@ pipeline{
 		}
 		stage("build"){
 			steps{
-				echo "Start build"
+				echo "Start Build"
 				bat "mvn install -DskipTests"
 			}
 		}
 		
-		stage('Deploy to Tomcat') {
+		stage("Deploy to Tomcat") {
 			steps {
 				script {
 					// Find the WAR file
@@ -38,6 +38,7 @@ pipeline{
 					def tomcatPassword = 'password'
  
 					// Deploy the WAR file using curl
+					echo 'Deploying application to Apache Tomcat...'
 					bat """
 					curl -v -u ${tomcatUser}:${tomcatPassword} \
 					-T ${warFile} \
@@ -54,7 +55,7 @@ pipeline{
             echo 'Pipeline has been completed successfully.'
         }
         failure {
-            echo 'Pipeline has failed - Please check the corresponding logs for more information.'
+            echo 'Pipeline has failed. Please check the corresponding logs for more information.'
         }
     }
 
