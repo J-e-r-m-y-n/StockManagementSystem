@@ -83,7 +83,7 @@ footer {
 
 	<div class="container">
 		<!-- Greeting Message -->
-		<h1>Welcome User v1</h1>
+		<h1>Welcome User v0</h1>
 
 		<!-- HTML element required for updateDateTime function to display current date and time -->
 		<p id="datetime"></p>
