@@ -31,8 +31,8 @@ pipeline{
 
                     // Prepare SonarQube environment
                     def sonarProperties = """
-                        sonar.projectKey=maven-project-jenkins-lab2
-                        sonar.projectName=maven-project-jenkins-lab2-name
+                        sonar.projectKey=StockManagementSystem
+                        sonar.projectName=StockManagementSystem-name
                         sonar.projectVersion=1.0
                         sonar.sources=src/main
                         sonar.sourceEncoding=UTF-8
@@ -58,5 +58,39 @@ pipeline{
             }
         }
 
+stage('Deploy to Tomcat') {
+			steps {
+				script {
+					// Find the WAR file
+            		//def warFile = findFiles(glob: 'target/*.war')[0]
+            		def warFile = 'target\\StockManagementSystem.war'
+            		//echo "Deploying WAR file: ${warFile.path}"
+ 
+					// Tomcat Manager URL and credentials
+					def tomcatUrl = 'http://localhost:8090/StockManagementSystem'
+					def tomcatUser = 'tomcat'
+					def tomcatPassword = 'password'
+ 
+					// Deploy the WAR file using curl
+					bat """
+					curl -v -u ${tomcatUser}:${tomcatPassword} \
+					-T ${warFile} \
+					${tomcatUrl}/deploy?path=/StockManagementSystem
+					"""
+				}
+			}
+		}
+
 	}
+	
+	post {
+        success {
+            echo 'Pipeline has been completed successfully.'
+        }
+        failure {
+            echo 'Pipeline has failed - Please check the corresponding logs for more information.'
+        }
+    }
+
+	
 }
