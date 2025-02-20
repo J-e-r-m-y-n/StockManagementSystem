@@ -74,7 +74,7 @@ pipeline{
 					bat """
 					curl -v -u ${tomcatUser}:${tomcatPassword} \
 					-T ${warFile} \
-					${tomcatUrl}/deploy?path=/StockManagementSystem
+					${tomcatUrl}/StockManagementSystem
 					"""
 				}
 			}
