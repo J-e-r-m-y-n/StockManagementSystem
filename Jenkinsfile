@@ -56,7 +56,7 @@ pipeline{
              }
  }
 		
-		stage('Deploy to Tomcat') {
+stage('Deploy to Tomcat') {
 			steps {
 				script {
 					// Find the WAR file
@@ -65,16 +65,15 @@ pipeline{
             		//echo "Deploying WAR file: ${warFile.path}"
  
 					// Tomcat Manager URL and credentials
-					def tomcatUrl = 'http://localhost:8090'
+					def tomcatUrl = 'http://localhost:8090/manager/text'
 					def tomcatUser = 'tomcat'
 					def tomcatPassword = 'password'
  
 					// Deploy the WAR file using curl
-					echo "Deploying..."
 					bat """
 					curl -v -u ${tomcatUser}:${tomcatPassword} \
 					-T ${warFile} \
-					${tomcatUrl}/StockManagementSystem
+					${tomcatUrl}/deploy?path=/StockManagementSystem
 					"""
 				}
 			}
