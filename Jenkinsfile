@@ -24,6 +24,38 @@ pipeline{
 			}
 		}
 		
+		stage("sonar") {
+            steps {
+                script {
+                    // Prepare SonarQube environment
+                    def sonarProperties = """
+                        sonar.projectKey=StockManagementSystem
+                        sonar.projectName=StockManagementSystem-name
+                        sonar.projectVersion=1.0
+                        sonar.sources=src/main
+                        sonar.sourceEncoding=UTF-8
+                        sonar.language=java
+                        
+                        sonar.tests=src/test
+                        sonar.junit.reportsPath=target/surefire-reports
+                        sonar.surefire.reportsPath=target/surefire-reports
+                        sonar.jacoco.reportPath=target/jacoco.exec
+                        
+                        sonar.java.binaries=target/classes
+                        sonar.java.coveragePlugin=jacoco
+                    """
+
+                    // Create sonar-project.properties file
+                    writeFile file: 'sonar-project.properties', text: sonarProperties
+
+                    // Run SonarQube scan using the properties file
+                    withSonarQubeEnv('sonarqube_server') {
+                    	bat "mvn sonar:sonar"
+                	}
+                }
+             }
+ }
+		
 		stage('Deploy to Tomcat') {
 			steps {
 				script {
