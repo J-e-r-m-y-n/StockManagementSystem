@@ -70,7 +70,7 @@ footer {
 <body>
 
 	<header>
-		<h1>Stock Management System</h1>
+		<h1>Stock Management System v1.00</h1>
 	</header>
 
 	<!-- Navigation buttons -->
@@ -83,7 +83,7 @@ footer {
 
 	<div class="container">
 		<!-- Greeting Message -->
-		<h1>Welcome User v0</h1>
+		<h1>Welcome User</h1>
 
 		<!-- HTML element required for updateDateTime function to display current date and time -->
 		<p id="datetime"></p>
