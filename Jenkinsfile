@@ -65,7 +65,7 @@ pipeline{
             		//echo "Deploying WAR file: ${warFile.path}"
  
 					// Tomcat Manager URL and credentials
-					def tomcatUrl = 'http://localhost:8090/manager//StockManagementSystem'
+					def tomcatUrl = 'http://localhost:8090/manager/StockManagementSystem'
 					def tomcatUser = 'tomcat'
 					def tomcatPassword = 'password'
  
