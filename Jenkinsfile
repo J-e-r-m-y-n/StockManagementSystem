@@ -91,7 +91,7 @@ stage('Deploy to Tomcat') {
         
         always {
             mail to: 'jermyn.school@gmail.com',
-                 subject: "Jenkins Build Email Notification: ${currentBuild.fullDisplayName}",
+                 subject: "Email Notification - Jenkins Build Status: ${currentBuild.fullDisplayName}",
                  body: """\
                  Build Status: ${currentBuild.currentResult}
                  Project: ${env.JOB_NAME}
