@@ -1,5 +1,6 @@
 pipeline{
 	agent any
+	// Auto-installs the tools required: Maven 3.9.9 and Java JDK 17
 	tools { 
         maven 'Maven 3.9.9' 
         jdk 'Java JDK 17' 
@@ -8,18 +9,21 @@ pipeline{
 		stage("clean"){
 			steps{
 				echo "Start Clean"
-				bat "mvn clean"
+				// Deletes the target directory, which contains all the compiled files and build artifacts from previous builds
+				bat "mvn clean" 
 			}
 		}
 		stage("test"){
 			steps{
 				echo "Start Test"
+				// Runs any unit tests
 				bat "mvn test"
 			}
 		}
 		stage("build"){
 			steps{
 				echo "Start Build"
+				// Compiles, test, and package the project, while skipping any unit tests
 				bat "mvn install -DskipTests"
 			}
 		}
@@ -27,7 +31,7 @@ pipeline{
 		stage("sonar") {
             steps {
                 script {
-                    // Prepare SonarQube environment
+                    // Prepare SonarQube environment - https://docs.sonarsource.com/sonarqube-server/latest/analyzing-source-code/analysis-parameters/
                     def sonarProperties = """
                         sonar.projectKey=StockManagementSystem
                         sonar.projectName=StockManagementSystem-name
@@ -83,13 +87,16 @@ stage('Deploy to Tomcat') {
 	
 	post {
         success {
+			// Message to display when Pipeline has been completed successfully
             echo 'Pipeline has been completed successfully.'
         }
         failure {
+			// Message to display when Pipeline has been unsuccessful
             echo 'Pipeline has failed. Please check the corresponding logs for more information.'
         }
         
         always {
+			// Creates and sends email notification in the following format
             mail to: 'jermyn.school@gmail.com',
                  subject: "Email Notification - Jenkins Build Status: ${currentBuild.fullDisplayName}",
                  body: """\
