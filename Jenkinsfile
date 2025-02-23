@@ -88,6 +88,17 @@ stage('Deploy to Tomcat') {
         failure {
             echo 'Pipeline has failed. Please check the corresponding logs for more information.'
         }
+        
+        always {
+            mail to: 'jermyn.school@gmail.com',
+                 subject: "Jenkins Build Email Notification: ${currentBuild.fullDisplayName}",
+                 body: """\
+                 Build Status: ${currentBuild.currentResult}
+                 Project: ${env.JOB_NAME}
+                 Build Number: ${env.BUILD_NUMBER}
+                 Build URL: ${env.BUILD_URL}
+                 """
+        }
     }
 
 	
