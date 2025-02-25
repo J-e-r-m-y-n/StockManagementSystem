@@ -92,7 +92,7 @@ footer {
 	
 	<!-- Page Footer to include the copyright icon  and User's Company Name -->
 	<footer>
-		<p>&copy; 2024 User's Company Name</p>
+		<p>&copy; 2025 User's Company Name</p>
 	</footer>
 
 <script>
