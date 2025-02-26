@@ -70,7 +70,7 @@ footer {
 <body>
 
 	<header>
-		<h1>Stock Management System v1.03</h1>
+		<h1>Stock Management System v2.00</h1>
 	</header>
 
 	<!-- Navigation buttons -->
