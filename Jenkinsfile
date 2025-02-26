@@ -1,13 +1,19 @@
 pipeline{
+	// This is a Declarative Pipeline
+	// Allows the job to run on any available agent or machine that is connected
 	agent any
-	// Auto-installs the tools required: Maven 3.9.9 and Java JDK 17
+	// Auto-installs the tools required for this Pipeline to run: Maven 3.9.9 and Java JDK 17
 	tools { 
         maven 'Maven 3.9.9' 
         jdk 'Java JDK 17' 
     }
+    // The list of stages in this Pipeline
 	stages{
+		// The name of this stage
 		stage("clean"){
+			// The steps in this stage
 			steps{
+				// Text to display at the start of this Stage
 				echo "Start Clean"
 				// Deletes the target directory, which contains all the compiled files and build artifacts from previous builds
 				bat "mvn clean" 
@@ -15,23 +21,28 @@ pipeline{
 		}
 		stage("test"){
 			steps{
+				// Text to display at the start of this stage
 				echo "Start Test"
-				// Runs any unit tests
+				// Compiles the code and runs any unit tests
 				bat "mvn test"
 			}
 		}
 		stage("build"){
 			steps{
+				// Text to display at the start of this stage
 				echo "Start Build"
-				// Compiles, test, and package the project, while skipping any unit tests
+				// Compiles, test, package and installs the project
+				// "-DskipTests" will skip the test step
 				bat "mvn install -DskipTests"
 			}
 		}
-		
+
 		stage("sonar") {
             steps {
+				// Script to Prepare SonarQube environment
+				// https://docs.sonarsource.com/sonarqube-server/latest/analyzing-source-code/analysis-parameters/
                 script {
-                    // Prepare SonarQube environment - https://docs.sonarsource.com/sonarqube-server/latest/analyzing-source-code/analysis-parameters/
+                    // Defining parameters for sonarProperties file
                     def sonarProperties = """
                         sonar.projectKey=StockManagementSystem
                         sonar.projectName=StockManagementSystem-name
@@ -64,9 +75,9 @@ stage('Deploy to Tomcat') {
 			steps {
 				script {
 					// Find the WAR file
-            		//def warFile = findFiles(glob: 'target/*.war')[0]
+            		// def warFile = findFiles(glob: 'target/*.war')[0]
             		def warFile = 'target\\StockManagementSystem.war'
-            		//echo "Deploying WAR file: ${warFile.path}"
+            		// echo "Deploying WAR file: ${warFile.path}"
  
 					// Tomcat Manager URL and credentials
 					def tomcatUrl = 'http://localhost:8090/manager/text'
@@ -87,11 +98,11 @@ stage('Deploy to Tomcat') {
 	
 	post {
         success {
-			// Message to display when Pipeline has been completed successfully
+			// Text to display when Pipeline has been completed successfully
             echo 'Pipeline has been completed successfully.'
         }
         failure {
-			// Message to display when Pipeline has been unsuccessful
+			// Text to display when Pipeline has been unsuccessful
             echo 'Pipeline has failed. Please check the corresponding logs for more information.'
         }
         
